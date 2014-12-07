@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<link rel="StyleSheet" type="text/css" href="style.css" />
+
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+
+</head>
+<body id="body" >
+<div class="title"><h1>BLIND SOLVER</h1></div>
+<table id="output"></table>
+
+</body>
+<script>
+    setInterval( function(){ updatedata();}, 2000);
+
+    function makePage() {
+	$.get( "data.json", function( data ) {
+		$("#output").append('<tr><td><table id="info" >')
+		$("#info").append('<tr><td >LST:</td><td id="LST">'+data.LST+'</td></tr>')
+		$("#info").append('<tr><td >LAST UPDATE(UTC):</td><td id="LAST_UPDATE">'+data.DATE+'</td></tr>')
+		$("#output").append('</table></td>')
+		$("#output").after('<td><table id="moon" >')
+		$("#moon").append('<tr><td class="infor">MOON PHASE:</td><td id="moonphase">'+data.MOONPHASE+'</td> \
+				<td class="infor">MOON RA:</td><td id="moonra">'+data.MOONRA+'</td> \
+				<td class="infor">MOON DEC:</td><td id="moondec">'+data.MOONDEC+'</td></tr>')
+		$("#moon").append('<td class="infor">MOON RISE:</td><td id="moonrise">'+data.MOONRISE+'</td>')
+		$("#moon").append('<td class="infor">MOON SET:</td><td id="moonset">'+data.MOONSET+'</td>')	
+		$("#moon").append('<td class="infor">FULL MOON:</td><td id="fullmoon">'+data.FULLMOON+'</td>')
+		$("#moon").append('<td class="infor">NEW MOON:</td><td id="newmoon">'+data.NEWMOON+'</td>')
+		$("#output").after('</table></td>')
+		$("#output").after('<td><table id="sun" >')
+		$("#sun").append('<tr><td class="infor">SUN RISE:</td><td id="sunrise">'+data.SUNRISE+'</td> \
+				<td class="infor">SUN SET:</td><td id="sunset">'+data.SUNSET+'</td></tr> \
+				<tr><td class="infor">TWILIGHT:</td><td id="twilight">'+data.twilight+'</td> \
+				<td class="infor">AZ/ALT:</td><td id="SUNAZ_ALT">'+data.SUNAZ+' '+data.SUNALT+'</td></tr>')
+		$("#output").after('</table></td>')
+
+		for (var tele in data.TELESCOPE) {
+			$("#output").append('<td><table class="telescope" id='+data.TELESCOPE[tele].NAME+'>')
+			//$("#"+data.TELESCOPE[tele].NAME).append('<tr><td>TELESCOPE:</td><td class="LABEL">'+data.TELESCOPE[tele].LABEL+'</td></tr>')
+			$("#"+data.TELESCOPE[tele].NAME).append('<tr ><td colspan=2 class="LABEL">'+data.TELESCOPE[tele].LABEL+'</td></tr>')
+			$("#"+data.TELESCOPE[tele].NAME).append('<tr><td>IMAGE DATE:</td><td class="DATE">'+data.TELESCOPE[tele].DATE+'</td></tr>')
+			$("#"+data.TELESCOPE[tele].NAME).append('<tr><td>RA/DEC:</td><td class="RA_DEC">'+data.TELESCOPE[tele].RA+"  "+data.TELESCOPE[tele].DEC+'</td></tr>')
+			$("#"+data.TELESCOPE[tele].NAME).append('<tr><td>ALT/AZ:</td><td class="ALT_AZ">'+data.TELESCOPE[tele].ALT+"  "+data.TELESCOPE[tele].AZ+'</td></tr>')
+			$("#"+data.TELESCOPE[tele].NAME).append('<tr><td>CONSTELLATION:</td><td class="CONSTELLATION">'+data.TELESCOPE[tele].CONSTELLATION+'</td></tr>')
+
+			$("#"+data.TELESCOPE[tele].NAME).append('<tr><td>FIELD ROTATION:</td><td class="ROT">'+data.TELESCOPE[tele].ROTATION+'</td></tr>')
+			$("#"+data.TELESCOPE[tele].NAME).append('<tr><td colspan=2 class="IMAGE"><img src='+data.TELESCOPE[tele].IMAGE+'></td><tr>')
+			$("#output").append('</table></td>')
+		}
+		$("#output").append('</tr>')
+	}, "json" );
+    }	
+
+    function updatedata(){
+    //$(".heartbeat").append(".")
+    $.ajax({
+    // the URL for the request
+    url: "data.json",
+ 
+    // the data to send (will be converted to a query string)
+    data: {
+
+    },
+	 
+    // whether this is a POST or GET request
+    type: "GET",
+ 
+    // the type of data we expect back
+    dataType : "json",
+ 
+    // code to run if the request succeeds;
+    // the response is passed to the function
+    success: function( data ) {
+		$("#LST").text(data.LST)
+		$("#LAST_UPDATE").text(data.DATE)
+		$("#moonphase").text(data.MOONPHASE)
+		$("#moonra").text(data.MOONRA)
+		$("#moondec").text(data.MOONDEC)
+		$("#moonrise").text(data.MOONRISE)
+		$("#moonset").text(data.MOONSET)
+		$("#fullmoon").text(data.FULLMOON)
+		$("#newmoon").text(data.NEWMOON)
+		$("#sunrise").text(data.SUNRISE)
+		$("#sunset").text(data.SUNSET)
+		$("#SUNAZ_ALT").text(data.SUNAZ+' '+data.SUNALT)
+		$("#twilight").text(data.twilight)
+		for (var tele in data.TELESCOPE) {
+
+			$("#"+data.TELESCOPE[tele].NAME+" .RA_DEC").text(data.TELESCOPE[tele].RA+"  "+data.TELESCOPE[tele].DEC)
+			$("#"+data.TELESCOPE[tele].NAME+" .ALT_AZ").text(data.TELESCOPE[tele].ALT+"  "+data.TELESCOPE[tele].AZ)
+			$("#"+data.TELESCOPE[tele].NAME+" .CONSTELLATION").text(data.TELESCOPE[tele].CONSTELLATION)
+			$("#"+data.TELESCOPE[tele].NAME+" .ROT").text(data.TELESCOPE[tele].ROTATION)
+			$("#"+data.TELESCOPE[tele].NAME+" .IMAGE img").attr("src",data.TELESCOPE[tele].IMAGE)
+
+			$("#"+data.TELESCOPE[tele].NAME+" .DATE").text(data.TELESCOPE[tele].DATE)
+			var d1 = new Date(data.TELESCOPE[tele].DATE)
+			var cachos=data.DATE.split('/',3)
+			resto=cachos[2].split(' ')
+			var dateTXT=resto[0]+"/"+cachos[1]+"/"+cachos[0]
+			var now = new Date(dateTXT+" "+resto[1])
+			var diff=(now.getTime()-d1.getTime())/1000
+			$("#"+data.TELESCOPE[tele].NAME+" .LABEL").css('color',"#0a0")
+			if (diff>120) {
+				$("#"+data.TELESCOPE[tele].NAME+" .LABEL").css('color',"#aa0")
+			}
+			if (diff>600) {
+				$("#"+data.TELESCOPE[tele].NAME+" .LABEL").css('color',"#a00")
+			}
+		}
+    },
+ 
+    // code to run if the request fails; the raw request and
+    // status codes are passed to the function
+    error: function( xhr, status ) {
+        //alert( "Sorry, there was a problem!" );
+    },
+ 
+    // code to run regardless of success or failure
+    complete: function( xhr, status ) {
+ 
+    }
+    });
+
+    };
+    makePage();
+</script>
+</html>

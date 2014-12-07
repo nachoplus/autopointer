@@ -1,0 +1,97 @@
+
+body 
+{
+color:#aaaaaa;
+background: #000000; 
+}    
+
+img
+{
+max-width: 350px;
+max-height:350px;
+border:0px solid #AAaaaa;
+}
+
+hr
+{
+color: #000;
+background-color: #f00;
+width: 40%;
+height: 1px;
+}
+
+.title {
+	text-align:center
+	font-size:16px;
+	color:#AA0000;
+}
+A {
+color: #0044cc; 
+font-size:14px;
+text-decoration: none;
+font-weight:bold;
+}
+
+A:hover {
+color: #CCaa00; 
+font-size:14px;
+text-decoration: none;
+font-weight:bold;
+}
+table#output  tr{
+	margin:5px;padding:5px;
+	border:1px solid #440000;
+	text-align:center
+}
+
+.infor {
+	text-align:left;
+	color:#6666AA;
+}
+table.telescope  {
+	margin:5px;padding:5px;
+	border:0px solid #440000;
+	text-align:center
+}
+
+table.telescope   td{
+	margin:20px;padding:5px;
+	width:250;
+	vertical-align:middle;
+	border:1px solid #aaaaaa;
+	font-family:Arial;
+	font-weight:normal;
+}
+
+table#moon   {
+	margin:20px;padding:5px;
+	width:250;
+	vertical-align:middle;
+	border:1px solid #aaaaaa;
+	font-family:Arial;
+	font-weight:normal;
+}
+
+table#sun   {
+	margin:20px;padding:5px;
+	width:250;
+	vertical-align:middle;
+	border:1px solid #aaaaaa;
+	font-family:Arial;
+	font-weight:normal;
+}
+
+#LST  {
+	font-size:24px;
+	color:#CCCCCC;
+}
+
+.LABEL  {
+	font-size:24px;
+}
+
+.RA_DEC {
+	font-size:16px;
+	color:#8888CC;
+}
+

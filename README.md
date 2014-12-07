@@ -2,7 +2,7 @@ __Autopointer__
 ========
 Introduction
 ------------
-Autopointer is a python daemon that resolve starfields images take from a telescope and show in a web page where is pointing that telescope. Also shows several astronimical data in realtime (Local Standard Time, sun and moon position, etc ...).
+Autopointer is a python daemon that resolve starfields images take from a telescope and show in a web page where is pointing that telescope. Also shows several astronomical data in realtime (Local Standard Time, sun and moon position, etc ...).
 
 This software use pyephem and astrometry.net thus you have to have installed in your system.
 
@@ -24,6 +24,7 @@ url=http://localhost/pointer/test/m81.png
 solve_params=-D tmp/ -2 -p --overwrite -z 4 -y -g -l 60 -H 6 -u app
 ```
 Be sure that last telescope image is available using that url.
+solve_params are speed up parameters of solve-field (astrometry.net)
 
 Then make a sympolic link from home_dir to your webserver document root. 
 
@@ -35,6 +36,8 @@ That is!
 
 __Use__
 -------
+Run ./autopointer start
+
 visit your web server link
 
 

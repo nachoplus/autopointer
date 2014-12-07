@@ -1,4 +1,4 @@
-__CatServer__
+__Autopointer__
 ========
 Introduction
 ------------
@@ -29,7 +29,7 @@ Then make a sympolic link from home_dir to your webserver document root.
 
 i.e. 
 ```python
-sudo ln -s /home/nacho/work/var/autopointer autopointer
+sudo ln -s /home/nacho/work/var/autopointer /var/www/html/autopointer
 ```
 That is!
 
